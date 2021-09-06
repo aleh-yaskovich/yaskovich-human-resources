@@ -38,7 +38,7 @@ public class Department {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Department that = (Department) o;
-        return Objects.equals(departmentId, that.departmentId) && Objects.equals(departmentName, that.departmentName);
+        return departmentId == that.departmentId && Objects.equals(departmentName, that.departmentName);
     }
 
     @Override

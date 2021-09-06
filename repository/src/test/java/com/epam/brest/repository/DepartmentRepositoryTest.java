@@ -68,18 +68,6 @@ class DepartmentRepositoryTest {
     }
 
     @Test
-    void updateByIdTest() {
-        List<Department> departments = repository.findAll();
-        assertTrue(departments.size() > 0);
-        Department department = departments.get(0);
-        int departmentId = department.getDepartmentId();
-        repository.updateById(departmentId, "UPDATED");
-        Department testDepartment = repository.findById(departmentId).get();
-        assertEquals(testDepartment.getDepartmentName(), "UPDATED");
-        assertTrue(testDepartment.getDepartmentId() == departmentId);
-    }
-
-    @Test
     void deleteDepartmentTest() {
         Department department = new Department("TEST");
         repository.save(department);
