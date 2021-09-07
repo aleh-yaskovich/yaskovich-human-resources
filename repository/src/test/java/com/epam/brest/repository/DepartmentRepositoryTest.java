@@ -1,6 +1,7 @@
 package com.epam.brest.repository;
 
 import com.epam.brest.entity.Department;
+import com.epam.brest.entity.DepartmentDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,13 @@ class DepartmentRepositoryTest {
     @Test
     void findAllTest() {
         List<Department> departments = repository.findAll();
+        assertNotNull(departments);
+        assertTrue(departments.size() > 0);
+    }
+
+    @Test
+    void findAllWithSalaryTest() {
+        List<DepartmentDto> departments = repository.findAllWithSalary();
         assertNotNull(departments);
         assertTrue(departments.size() > 0);
     }
