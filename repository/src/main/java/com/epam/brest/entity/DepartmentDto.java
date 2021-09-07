@@ -6,7 +6,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
 
-@Table("DEPARTMENT")
 public class DepartmentDto {
 
     private int departmentId;
