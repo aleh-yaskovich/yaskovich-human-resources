@@ -7,6 +7,7 @@
 
     <modules>
         <module>repository</module>
+        <module>repository-jpa</module>
     </modules>
 
     <parent>
@@ -29,6 +30,11 @@
             <dependency>
                 <groupId>com.epam.brest</groupId>
                 <artifactId>repository</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest</groupId>
+                <artifactId>repository-jpa</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
