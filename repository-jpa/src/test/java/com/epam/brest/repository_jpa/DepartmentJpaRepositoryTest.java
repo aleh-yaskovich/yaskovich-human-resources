@@ -36,6 +36,28 @@ class DepartmentJpaRepositoryTest {
     }
 
     @Test
+    void findAllNamesTest() {
+        repository.saveAll(departments);
+        List<Department> departmentList = repository.findAll();
+        assertTrue(departmentList.size() > 0);
+
+        List<DepartmentName> departmentNames = repository.findAllBy();
+        assertNotNull(departmentNames);
+        assertTrue(departmentNames.size() > 0);
+    }
+
+    @Test
+    void findAllNameTest() {
+        repository.saveAll(departments);
+        List<Department> departmentList = repository.findAll();
+        assertTrue(departmentList.size() > 0);
+
+        List<String> departmentNames = repository.findAllName();
+        assertNotNull(departmentNames);
+        assertTrue(departmentNames.size() > 0);
+    }
+
+    @Test
     void findByIdTest() {
         repository.saveAll(departments);
         List<Department> departmentList = repository.findAll();
@@ -60,6 +82,18 @@ class DepartmentJpaRepositoryTest {
         String expectedMessage = "No value present";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void findByNameTest() {
+        repository.saveAll(departments);
+        List<Department> departmentList = repository.findAll();
+        assertTrue(departmentList.size() > 0);
+        String departmentName = departmentList.get(0).getName();
+
+        Optional<Department> departmentOptional = repository.findByName(departmentName);
+        assertTrue(departmentOptional.isPresent());
+        assertEquals(departmentOptional.get(), departmentList.get(0));
     }
 
     @Test

@@ -36,6 +36,17 @@ class EmployeeJpaRepositoryTest {
     }
 
     @Test
+    void findAllNamesTest() {
+        repository.saveAll(employees);
+        List<Employee> employeeList = repository.findAll();
+        assertTrue(employeeList.size() > 0);
+
+        List<EmployeeName> employeeNames = repository.findAllBy();
+        assertNotNull(employeeNames);
+        assertTrue(employeeNames.size() > 0);
+    }
+
+    @Test
     void findByIdTest() {
         repository.saveAll(employees);
         List<Employee> employeeList = repository.findAll();
@@ -60,6 +71,29 @@ class EmployeeJpaRepositoryTest {
         String expectedMessage = "No value present";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void findByFirstNameTest() {
+        repository.saveAll(employees);
+        List<Employee> employeeList = repository.findAll();
+        assertTrue(employeeList.size() > 0);
+
+        List<Employee> employeeByFirstName = repository.findByFirstName("FirstName1");
+        assertNotNull(employeeByFirstName);
+        assertTrue(employeeByFirstName.size() > 0);
+    }
+
+    @Test
+    void findByEmailTest() {
+        repository.saveAll(employees);
+        List<Employee> employeeList = repository.findAll();
+        assertTrue(employeeList.size() > 0);
+
+        String email = employeeList.get(0).getEmail();
+        Optional<Employee> employeeOptional = repository.findByEmail(email);
+        assertTrue(employeeOptional.isPresent());
+        assertEquals(employeeOptional.get(), employeeList.get(0));
     }
 
     @Test
