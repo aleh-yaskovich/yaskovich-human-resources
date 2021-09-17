@@ -7,7 +7,6 @@
 
     <modules>
         <module>repository</module>
-        <module>service</module>
         <module>entity</module>
     </modules>
 
@@ -36,11 +35,6 @@
             <dependency>
                 <groupId>com.epam.brest</groupId>
                 <artifactId>repository</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.epam.brest</groupId>
-                <artifactId>service</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
