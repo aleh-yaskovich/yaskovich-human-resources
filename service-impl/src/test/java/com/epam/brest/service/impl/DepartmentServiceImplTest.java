@@ -34,7 +34,7 @@ class DepartmentServiceImplTest {
     void findDepartmentByIdTest() {
         Mockito.when(departmentRepository.findById(1L)).thenReturn(Optional.ofNullable(departmentList.get(0)));
         Optional<Department> optionalDepartment = departmentService.findDepartmentById(1L);
-        assertNotNull(optionalDepartment);
+        assertTrue(optionalDepartment.isPresent());
         assertEquals(optionalDepartment.get().getName(), departmentList.get(0).getName());
     }
 

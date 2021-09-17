@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,18 +32,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department createDepartment(Department department) throws IllegalArgumentException {
         LOGGER.debug("createDepartment({})", department);
-        if(checkDepartmentName(department)) {
-            throw new IllegalArgumentException("Department with name \""+department.getName()+"\" already exists");
-        } else {
+        if(checkDepartmentName(department).size() == 0) {
             repository.save(department);
             return department;
+        } else {
+            throw new IllegalArgumentException("Department with name \""+department.getName()+"\" already exists");
         }
     }
 
     @Override
     public Department updateDepartment(Department department) throws IllegalArgumentException {
         LOGGER.debug("updateDepartment({})", department);
-        if(checkDepartmentName(department)) {
+        if(checkDepartmentName(department).size() > 1) {
             throw new IllegalArgumentException("There is one more department with name \""+department.getName()+"\"");
         } else {
             repository.save(department);
@@ -51,12 +52,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void deleteDepartmentById(Long id) {
+    public void deleteDepartmentById(Long id) throws IllegalArgumentException {
         LOGGER.debug("deleteDepartmentById({})", id);
+        Optional<Department> optionalDepartment = repository.findById(id);
+        if(optionalDepartment.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("There is no department with ID "+id);
+        }
     }
 
-    private boolean checkDepartmentName(Department department) {
-        Optional<Department> res = repository.findByName(department.getName());
-        return (res.isPresent()) ? true : false;
+    private List<Department> checkDepartmentName(Department department) {
+        return repository.findByName(department.getName());
     }
 }
