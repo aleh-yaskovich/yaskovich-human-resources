@@ -45,9 +45,9 @@ class DepartmentRepositoryTest {
         assertTrue(departments.size() > 0);
 
         String name = departments.get(0).getName();
-        Optional<Department> optionalDepartment = repository.findByName(name);
-        assertTrue(optionalDepartment.isPresent());
-        assertEquals(optionalDepartment.get(), departments.get(0));
+        List<Department> departmentsByName = repository.findByName(name);
+        assertNotNull(departmentsByName);
+        assertTrue(departmentsByName.size() > 0);
     }
 
     @Test

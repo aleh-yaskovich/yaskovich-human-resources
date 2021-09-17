@@ -12,7 +12,7 @@ public interface DepartmentRepository extends CrudRepository<Department, Long> {
 
     Optional<Department> findById(Long id);
 
-    Optional<Department> findByName(String name);
+    List<Department> findByName(String name);
 
     Department save(Department department);
 
