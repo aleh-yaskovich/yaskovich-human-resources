@@ -4,22 +4,31 @@ import com.epam.brest.entity.Employee;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@DataJdbcTest
+@DataJpaTest
 class EmployeeRepositoryTest {
 
     @Autowired
-    EmployeeRepository repository;
+    private EmployeeRepository repository;
+
+    private List<Employee> employeeList = Arrays.asList(
+            new Employee("FirstName1", "LastName1", "mail1@mail.com", 500, 1L),
+            new Employee("FirstName2", "LastName2", "mail2@mail.com", 600, 1L),
+            new Employee("FirstName3", "LastName3", "mail3@mail.com", 1000, 2L)
+    );
 
     @Test
     void findAllTest() {
+        repository.saveAll(employeeList);
         List<Employee> employees = repository.findAll();
         assertNotNull(employees);
         assertTrue(employees.size() > 0);
@@ -27,61 +36,79 @@ class EmployeeRepositoryTest {
 
     @Test
     void findByIdTest() {
+        repository.saveAll(employeeList);
         List<Employee> employees = repository.findAll();
         assertTrue(employees.size() > 0);
 
-        Employee employee = employees.get(0);
-        Employee testEmployee = repository.findById(employee.getEmployeeId()).get();
-        assertEquals(employee, testEmployee);
+        Long id = employees.get(0).getId();
+        Optional<Employee> optionalEmployee = repository.findById(id);
+        assertTrue(optionalEmployee.isPresent());
+        assertEquals(optionalEmployee.get(), employees.get(0));
     }
 
     @Test
-    void saveEmployeeTest() {
+    void findByEmailTest() {
+        repository.saveAll(employeeList);
         List<Employee> employees = repository.findAll();
         assertTrue(employees.size() > 0);
 
-        Employee employee = new Employee("TestFirstName", "TestLastName", "test@mail.com", 500, 3);
-        repository.save(employee);
+        String email = employees.get(0).getEmail();
+        Optional<Employee> optionalEmployee = repository.findByEmail(email);
+        assertTrue(optionalEmployee.isPresent());
+        assertEquals(optionalEmployee.get(), employees.get(0));
+    }
 
-        List<Employee> testEmployees = repository.findAll();
-        assertTrue(employees.size() == (testEmployees.size()-1));
+    @Test
+    void createEmployeeTest() {
+        repository.saveAll(employeeList);
+        List<Employee> employees = repository.findAll();
+        assertTrue(employees.size() > 0);
 
-        Employee testEmployee = testEmployees.get(testEmployees.size()-1);
-        assertEquals(testEmployee.getEmployeeFirstName(), "TestFirstName");
-        assertEquals(employee, testEmployee);
+        int sizeBefore = employees.size();
+        Employee newEmployee = repository.save(new Employee("FirstName4", "LastName4", "mail4@mail.com", 900, 3L));
+        employees = repository.findAll();
+        int sizeAfter = employees.size();
+        assertTrue(sizeBefore == (sizeAfter - 1));
+        Employee testEmployee = employees.get(sizeAfter-1);
+        assertEquals(newEmployee, testEmployee);
     }
 
     @Test
     void updateEmployeeTest() {
+        repository.saveAll(employeeList);
         List<Employee> employees = repository.findAll();
         assertTrue(employees.size() > 0);
 
         Employee employee = employees.get(0);
-        employee.setEmployeeFirstName("TEST");
+        employee.setFirstName("Updated");
         repository.save(employee);
 
-        List<Employee> testEmployees = repository.findAll();
-        Employee testEmployee = testEmployees.get(0);
-
-        assertTrue(employees.size() == testEmployees.size());
-        assertEquals(testEmployee.getEmployeeFirstName(), "TEST");
+        employees = repository.findAll();
+        Employee testEmployee = employees.get(0);
+        assertEquals(employee, testEmployee);
     }
 
     @Test
-    void deleteEmployeeTest() {
+    void deleteByIdTest() {
+        repository.saveAll(employeeList);
         List<Employee> employees = repository.findAll();
         assertTrue(employees.size() > 0);
 
-        Employee employee = new Employee("TestFirstName", "TestLastName", "test@mail.com", 500, 3);
-        repository.save(employee);
+        Employee newEmployee = repository.save(new Employee("FirstName4", "LastName4", "mail4@mail.com", 900, 3L));
+        employees = repository.findAll();
+        int sizeBefore = employees.size();
+        Employee employee = employees.get(sizeBefore-1);
 
-        List<Employee> updateEmployees = repository.findAll();
-        assertTrue(employees.size() == (updateEmployees.size()-1));
+        repository.deleteById(employee.getId());
+        employees = repository.findAll();
+        int sizeAfter = employees.size();
+        assertTrue(sizeBefore == (sizeAfter + 1));
 
-        Employee testEmployee = updateEmployees.get(updateEmployees.size()-1);
-        repository.delete(testEmployee);
-
-        List<Employee> resultEmployees = repository.findAll();
-        assertTrue(resultEmployees.size() == (updateEmployees.size()-1));
+        boolean res = true;
+        for(Employee e : employees) {
+            if(e.getEmail().equals("mail4@mail.com"))
+                res = false;
+        }
+        assertTrue(res);
     }
 }

@@ -1,89 +1,106 @@
 package com.epam.brest.repository;
 
 import com.epam.brest.entity.Department;
-import com.epam.brest.entity.DepartmentDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@DataJdbcTest
+@DataJpaTest
 class DepartmentRepositoryTest {
 
     @Autowired
-    DepartmentRepository repository;
+    private DepartmentRepository repository;
 
-    @Test
-    void findAllTest() {
-        List<Department> departments = repository.findAll();
-        assertNotNull(departments);
-        assertTrue(departments.size() > 0);
-    }
-
-    @Test
-    void findAllWithSalaryTest() {
-        List<DepartmentDto> departments = repository.findAllWithSalary();
-        assertNotNull(departments);
-        assertTrue(departments.size() > 0);
-    }
+    private List<Department> departmentList = Arrays.asList(
+            new Department("IT"),
+            new Department("MANAGEMENT"),
+            new Department("SECURITY")
+    );
 
     @Test
     void findByIdTest() {
-        Department department = repository.findById(1).get();
-        assertTrue(department.getDepartmentId() == 1);
-    }
-
-    @Test
-    void findByIdTestWithWrongParameter() {
-        Exception exception = assertThrows(NoSuchElementException.class, () -> {
-            repository.findById(99).get();
-        });
-        String expectedMessage = "No value present";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    @Test
-    void saveDepartmentTest() {
-        Department department = new Department("TEST");
+        repository.saveAll(departmentList);
         List<Department> departments = repository.findAll();
         assertTrue(departments.size() > 0);
-        repository.save(department);
-        List<Department> testDepartments = repository.findAll();
-        assertTrue(departments.size() == (testDepartments.size()-1));
-        Department testDepartment = testDepartments.get(testDepartments.size()-1);
-        assertEquals(testDepartment.getDepartmentName(), "TEST");
-        assertEquals(department, testDepartment);
+
+        Long id = departments.get(0).getId();
+        Optional<Department> optionalDepartment = repository.findById(id);
+        assertTrue(optionalDepartment.isPresent());
+        assertEquals(optionalDepartment.get(), departments.get(0));
+    }
+
+    @Test
+    void findByNameTest() {
+        repository.saveAll(departmentList);
+        List<Department> departments = repository.findAll();
+        assertTrue(departments.size() > 0);
+
+        String name = departments.get(0).getName();
+        Optional<Department> optionalDepartment = repository.findByName(name);
+        assertTrue(optionalDepartment.isPresent());
+        assertEquals(optionalDepartment.get(), departments.get(0));
+    }
+
+    @Test
+    void createDepartmentTest() {
+        repository.saveAll(departmentList);
+        List<Department> departments = repository.findAll();
+        assertTrue(departments.size() > 0);
+
+        int sizeBefore = departments.size();
+        Department newDepartment = repository.save(new Department("New Department"));
+        departments = repository.findAll();
+        int sizeAfter = departments.size();
+        assertTrue(sizeBefore == (sizeAfter - 1));
+        Department testDepartment = departments.get(sizeAfter-1);
+        assertEquals(testDepartment, newDepartment);
     }
 
     @Test
     void updateDepartmentTest() {
+        repository.saveAll(departmentList);
         List<Department> departments = repository.findAll();
         assertTrue(departments.size() > 0);
+
         Department department = departments.get(0);
-        department.setDepartmentName("UPDATE");
+        department.setName("Updated Department");
         repository.save(department);
-        Department testDepartment = repository.findById(department.getDepartmentId()).get();
-        assertEquals(testDepartment.getDepartmentName(), "UPDATE");
+
+        departments = repository.findAll();
+        Department testDepartment = departments.get(0);
         assertEquals(department, testDepartment);
     }
 
     @Test
-    void deleteDepartmentTest() {
-        Department department = new Department("TEST");
-        repository.save(department);
+    void deleteByIdTest() {
+        repository.saveAll(departmentList);
         List<Department> departments = repository.findAll();
-        int size = departments.size();
-        Department testDepartment = departments.get(size-1);
-        repository.delete(testDepartment);
+        assertTrue(departments.size() > 0);
+
+        Department newDepartment = repository.save(new Department("New Department"));
         departments = repository.findAll();
-        assertTrue(departments.size() == (size-1));
+        int sizeBefore = departments.size();
+        Department department = departments.get(sizeBefore-1);
+
+        repository.deleteById(department.getId());
+        departments = repository.findAll();
+        int sizeAfter = departments.size();
+        assertTrue(sizeBefore == (sizeAfter + 1));
+
+        boolean res = true;
+        for(Department d : departments) {
+            if(d.getName().equals("New Department"))
+                res = false;
+        }
+        assertTrue(res);
     }
 }

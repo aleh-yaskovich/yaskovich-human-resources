@@ -1,60 +1,45 @@
 package com.epam.brest.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.relational.core.mapping.Table;
+import javax.persistence.*;
 
-import java.util.Objects;
-
+@Entity
+@Table(name = "DEPARTMENT")
 public class DepartmentDto {
 
-    private int departmentId;
-    private String departmentName;
-    private int avgSalary;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+    private Integer avgSalary;
 
-    public DepartmentDto() {
-    }
+    public DepartmentDto() { }
 
-    public DepartmentDto(int departmentId, String departmentName, int avgSalary) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
+    public DepartmentDto(String name, Integer avgSalary) {
+        this.name = name;
         this.avgSalary = avgSalary;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Long getId() {
+        return id;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getAvgSalary() {
+    public Integer getAvgSalary() {
         return avgSalary;
     }
 
-    public void setAvgSalary(int avgSalary) {
+    public void setAvgSalary(Integer avgSalary) {
         this.avgSalary = avgSalary;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DepartmentDto that = (DepartmentDto) o;
-        return departmentId == that.departmentId && avgSalary == that.avgSalary && Objects.equals(departmentName, that.departmentName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(departmentId, departmentName, avgSalary);
     }
 }

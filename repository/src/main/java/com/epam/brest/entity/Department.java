@@ -1,36 +1,57 @@
 package com.epam.brest.entity;
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity(name = "Department")
+@Table(name = "DEPARTMENT")
 public class Department {
 
     @Id
-    private int departmentId;
-    private String departmentName;
+    @SequenceGenerator(
+            name = "department_sequence",
+            sequenceName = "department_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "department_sequence"
+    )
+    @Column(
+            name = "ID",
+            updatable = false
+    )
+    private Long id;
+
+    @Column(
+            name = "NAME",
+            nullable = false,
+            columnDefinition = "VARCHAR",
+            unique = true
+    )
+    private String name;
 
     public Department() {
     }
 
-    public Department(String departmentName) {
-        this.departmentName = departmentName;
+    public Department(String name) {
+        this.name = name;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Long getId() {
+        return id;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getName() {
+        return name;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -38,11 +59,11 @@ public class Department {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Department that = (Department) o;
-        return departmentId == that.departmentId && Objects.equals(departmentName, that.departmentName);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(departmentId, departmentName);
+        return Objects.hash(id, name);
     }
 }

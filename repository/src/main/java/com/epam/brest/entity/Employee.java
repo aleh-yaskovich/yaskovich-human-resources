@@ -1,85 +1,118 @@
 package com.epam.brest.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity(name = "Employee")
+@Table(name = "EMPLOYEE")
 public class Employee {
 
     @Id
-    private int employeeId;
+    @SequenceGenerator(
+            name = "employee_sequence",
+            sequenceName = "employee_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "employee_sequence"
+    )
+    @Column(
+            name = "ID",
+            updatable = false
+    )
+    private Long id;
 
-    @Column("FIRSTNAME")
-    private String employeeFirstName;
+    @Column(
+            name = "FIRST_NAME",
+            nullable = false,
+            columnDefinition = "VARCHAR"
+    )
+    private String firstName;
 
-    @Column("LASTNAME")
-    private String employeeLastName;
+    @Column(
+            name = "LAST_NAME",
+            nullable = false,
+            columnDefinition = "VARCHAR"
+    )
+    private String lastName;
 
-    @Column("EMAIL")
-    private String employeeEmail;
+    @Column(
+            name = "EMAIL",
+            nullable = false,
+            columnDefinition = "VARCHAR",
+            unique = true
+    )
+    private String email;
 
-    @Column("SALARY")
-    private int employeeSalary;
+    @Column(
+            name = "SALARY",
+            nullable = false
+    )
+    private Integer salary;
 
-    private int departmentId;
+    @Column(
+            name = "DEPARTMENT_ID",
+            nullable = false
+    )
+    private Long departmentId;
 
     public Employee() {
     }
 
-    public Employee(String employeeFirstName, String employeeLastName, String employeeEmail, int employeeSalary, int departmentId) {
-        this.employeeFirstName = employeeFirstName;
-        this.employeeLastName = employeeLastName;
-        this.employeeEmail = employeeEmail;
-        this.employeeSalary = employeeSalary;
+    public Employee(String firstName, String lastName, String email, Integer salary, Long departmentId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.salary = salary;
         this.departmentId = departmentId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public Long getId() {
+        return id;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getEmployeeFirstName() {
-        return employeeFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setEmployeeFirstName(String employeeFirstName) {
-        this.employeeFirstName = employeeFirstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getEmployeeLastName() {
-        return employeeLastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setEmployeeLastName(String employeeLastName) {
-        this.employeeLastName = employeeLastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getEmployeeEmail() {
-        return employeeEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmployeeEmail(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getEmployeeSalary() {
-        return employeeSalary;
+    public Integer getSalary() {
+        return salary;
     }
 
-    public void setEmployeeSalary(int employeeSalary) {
-        this.employeeSalary = employeeSalary;
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 
-    public int getDepartmentId() {
+    public Long getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(int departmentId) {
+    public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -88,11 +121,11 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return employeeId == employee.employeeId && employeeSalary == employee.employeeSalary && departmentId == employee.departmentId && Objects.equals(employeeFirstName, employee.employeeFirstName) && Objects.equals(employeeLastName, employee.employeeLastName) && Objects.equals(employeeEmail, employee.employeeEmail);
+        return Objects.equals(id, employee.id) && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(email, employee.email) && Objects.equals(salary, employee.salary) && Objects.equals(departmentId, employee.departmentId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, employeeFirstName, employeeLastName, employeeEmail, employeeSalary, departmentId);
+        return Objects.hash(id, firstName, lastName, email, salary, departmentId);
     }
 }
