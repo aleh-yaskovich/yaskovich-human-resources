@@ -53,9 +53,9 @@ class EmployeeRepositoryTest {
         assertTrue(employees.size() > 0);
 
         String email = employees.get(0).getEmail();
-        Optional<Employee> optionalEmployee = repository.findByEmail(email);
-        assertTrue(optionalEmployee.isPresent());
-        assertEquals(optionalEmployee.get(), employees.get(0));
+        List<Employee> employeesByEmail = repository.findByEmail(email);
+        assertNotNull(employeesByEmail);
+        assertTrue(employeesByEmail.size() > 0);
     }
 
     @Test
