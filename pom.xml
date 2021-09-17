@@ -8,6 +8,8 @@
     <modules>
         <module>repository</module>
         <module>entity</module>
+        <module>service</module>
+        <module>service-impl</module>
     </modules>
 
     <parent>
@@ -35,6 +37,16 @@
             <dependency>
                 <groupId>com.epam.brest</groupId>
                 <artifactId>repository</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest</groupId>
+                <artifactId>service-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
