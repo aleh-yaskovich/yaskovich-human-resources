@@ -67,3 +67,4 @@ public class Department {
         return Objects.hash(id, name);
     }
 }
+
