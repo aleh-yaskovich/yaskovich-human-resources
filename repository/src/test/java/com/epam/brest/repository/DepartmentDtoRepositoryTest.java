@@ -1,5 +1,6 @@
 package com.epam.brest.repository;
 
+import com.epam.brest.entity.Department;
 import com.epam.brest.entity.DepartmentDto;
 import com.epam.brest.entity.Employee;
 import org.junit.jupiter.api.Test;
