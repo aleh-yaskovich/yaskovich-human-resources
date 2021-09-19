@@ -11,6 +11,7 @@
         <module>service</module>
         <module>service-impl</module>
         <module>rest-app</module>
+        <module>web-app</module>
     </modules>
 
     <parent>
@@ -53,6 +54,11 @@
             <dependency>
                 <groupId>com.epam.brest</groupId>
                 <artifactId>rest-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.epam.brest</groupId>
+                <artifactId>web-app</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
