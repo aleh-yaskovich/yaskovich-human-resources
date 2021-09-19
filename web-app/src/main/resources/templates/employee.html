@@ -47,36 +47,44 @@
 
         <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8 col-sm-12">
             <form class="ms-3" id="employeeForm"
-                  action="employees.html">
-                <input 	id="field_employeeId"
-                          type="hidden" />
+                  th:object="${employee}"
+                  action="employees.html"
+                  th:action="@{${#httpServletRequest.servletPath}}"
+                  th:method="@{post}">
+                <input 	id="field_id"
+                          type="hidden"
+                          th:field="*{id}" />
                 <div class="mb-2 me-3">
-                    <label for="field_employeeFirstName" class="form-label">Employee first name:</label>
-                    <input class="form-control" id="field_employeeFirstName"
-                           type="text" />
+                    <label for="field_firstName" class="form-label">Employee first name:</label>
+                    <input class="form-control" id="field_firstName"
+                           type="text"
+                           th:field="*{firstName}"/>
                 </div>
                 <div class="mb-2 me-3">
-                    <label for="field_employeeLastName" class="form-label">Employee last name:</label>
-                    <input class="form-control" id="field_employeeLastName"
-                           type="text" />
+                    <label for="field_lastName" class="form-label">Employee last name:</label>
+                    <input class="form-control" id="field_lastName"
+                           type="text"
+                           th:field="*{lastName}" />
                 </div>
                 <div class="mb-2 me-3">
-                    <label for="field_employeeEmail" class="form-label">Employee email:</label>
-                    <input class="form-control" id="field_employeeEmail"
-                           type="email" />
+                    <label for="field_email" class="form-label">Employee email:</label>
+                    <input class="form-control" id="field_email"
+                           type="email"
+                           th:field="*{email}" />
                 </div>
                 <div class="mb-2 me-3">
-                    <label for="field_employeeSalary" class="form-label">Employee salary:</label>
-                    <input class="form-control" id="field_employeeSalary"
-                           type="text" />
+                    <label for="field_salary" class="form-label">Employee salary:</label>
+                    <input class="form-control" id="field_salary"
+                           type="text"
+                           th:field="*{salary}" />
                 </div>
                 <div class="mb-4 me-3">
-                    <label for="field_employeeDepartment" class="form-label">Employee department:</label>
-                    <select class="form-select" aria-label="Default select example" id="field_employeeDepartment" >
-                        <div>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                    <label for="field_department" class="form-label">Employee department:</label>
+                    <select class="form-select" aria-label="Default select example" id="field_department"
+                            th:field="*{departmentId}">
+                        <div th:each="department : ${departments}">
+                            <option value="1" th:attr="value=${department.id}"
+                                    th:text="${department.name}">One</option>
                         </div>
                     </select>
                 </div>

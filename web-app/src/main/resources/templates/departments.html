@@ -63,18 +63,22 @@
                             </thead>
                             <tbody>
 
-                            <tr>
-                                <td>IT</td>
-                                <td>1500</td>
+                            <tr th:each="department : ${departments}">
+                                <td th:text="${department.getName()}">IT</td>
+                                <td th:text="${department.getAvgSalary()}">1500</td>
                                 <td class="text-end">
-                                    <a class="btn-sm btn-outline-secondary" href="department.html" title="Edit department">
+                                    <a class="btn-sm btn-outline-secondary" href="department.html"
+                                       th:href="@{/department/{id}(id=${department.getId()})}"
+                                       title="Edit department">
                                         <i class="bi-pen"></i>&nbsp;<span class="d-none d-md-inline">Edit</span>
                                     </a>
-                                    <span data-toggle="modal" data-target="#deleteModal">
+                                    <span data-toggle="modal" data-target="#deleteModal"
+                                          th:attr="data-id=${department.id},
+                                          data-name=${department.name}">
 											<a class="btn-sm btn-outline-secondary"  href="#" >
 												<i class="bi-x"></i><span class="d-none d-md-inline">Delete</span>
 											</a>
-                                    </span>
+										</span>
                                 </td>
                             </tr>
 
