@@ -1,9 +1,7 @@
 package com.epam.brest.service.rest;
 
-import com.epam.brest.entity.Department;
-import com.epam.brest.entity.DepartmentDto;
-import com.epam.brest.service.DepartmentDtoService;
-import com.epam.brest.service.DepartmentService;
+import com.epam.brest.entity.Employee;
+import com.epam.brest.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,20 +30,17 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestConfig.class)
-class DepartmentServiceRestTest {
+class EmployeeServiceRestTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentServiceRestTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceRestTest.class);
 
     @Autowired
     RestTemplate restTemplate;
 
     @Autowired
-    DepartmentService departmentService;
+    EmployeeService employeeService;
 
-    @Autowired
-    DepartmentDtoService departmentDtoService;
-
-    private String url = "http://localhost:8080/departments";
+    private String url = "http://localhost:8080/employees";
 
     private MockRestServiceServer mockServer;
 
@@ -57,103 +52,98 @@ class DepartmentServiceRestTest {
     }
 
     @Test
-    void findAllDepartmentsTest() throws Exception {
-        LOGGER.debug("findAllDepartmentsTest()");
+    void findAllEmployeesTest() throws Exception {
+        LOGGER.debug("findAllEmployeesTest()");
         // given
-        List<DepartmentDto> departmentList = Arrays.asList(
-                new DepartmentDto("IT", 100),
-                new DepartmentDto("MANAGEMENT", 200),
-                new DepartmentDto("SECURITY", 300)
-        );
+        List<Employee> employeeList = Arrays.asList(new Employee(), new Employee());
 
         mockServer.expect(ExpectedCount.once(), requestTo(url))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(departmentList))
+                        .body(mapper.writeValueAsString(employeeList))
                 );
 
         // when
-        List<DepartmentDto> departmentDtos = departmentDtoService.findAllDepartments();
+        List<Employee> employees = employeeService.findAllEmployees();
 
         // then
         mockServer.verify();
-        assertNotNull(departmentDtos);
-        assertTrue(departmentDtos.size() == 3);
+        assertNotNull(employees);
+        assertTrue(employees.size() == 2);
     }
 
     @Test
-    void findDepartmentByIdTest() throws Exception {
-        LOGGER.debug("findDepartmentByIdTest()");
+    void findEmployeeByIdTest() throws Exception {
+        LOGGER.debug("findEmployeeByIdTest()");
         // given
         Long id = 1L;
-        Department department = new Department("Test");
-        department.setId(id);
+        Employee employee = new Employee("FirstName1", "LastName1", "mail1@mail.com", 500, 1L);
+        employee.setId(id);
 
         mockServer.expect(ExpectedCount.once(), requestTo(url + "/" + id))
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(department))
+                        .body(mapper.writeValueAsString(employee))
                 );
 
         // when
-        Optional<Department> optionalDepartment = departmentService.findDepartmentById(id);
+        Optional<Employee> optionalEmployee = employeeService.findEmployeeById(id);
 
         // then
         mockServer.verify();
-        assertTrue(optionalDepartment.isPresent());
-        assertEquals(optionalDepartment.get().getId(), id);
-        assertEquals(optionalDepartment.get().getName(), department.getName());
+        assertTrue(optionalEmployee.isPresent());
+        assertEquals(optionalEmployee.get().getId(), id);
+        assertEquals(optionalEmployee.get().getEmail(), employee.getEmail());
     }
 
     @Test
-    void createDepartmentTest() throws Exception {
-        LOGGER.debug("createDepartmentTest()");
+    void createEmployeeTest() throws Exception {
+        LOGGER.debug("createEmployeeTest()");
         // given
         Long id = 1L;
-        Department department = new Department("Test");
-        department.setId(id);
+        Employee employee = new Employee("FirstName1", "LastName1", "mail1@mail.com", 500, 1L);
+        employee.setId(id);
 
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(url)))
                 .andExpect(method(HttpMethod.POST))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(department))
+                        .body(mapper.writeValueAsString(employee))
                 );
         // when
-        Department result = departmentService.createDepartment(department);
+        Employee result = employeeService.createEmployee(employee);
 
         // then
         mockServer.verify();
-        assertEquals(department, result);
+        assertEquals(employee, result);
     }
 
     @Test
-    void updateDepartmentTest() throws Exception {
-        LOGGER.debug("updateDepartmentTest()");
-        // given
+    void updateEmployeeTest() throws Exception {
+        LOGGER.debug("updateEmployeeTest()");
         Long id = 1L;
-        Department department = new Department("Test");
-        department.setId(id);
+        Employee employee = new Employee("FirstName1", "LastName1", "mail1@mail.com", 500, 1L);
+        employee.setId(id);
 
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(url)))
                 .andExpect(method(HttpMethod.PUT))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(department))
+                        .body(mapper.writeValueAsString(employee))
                 );
         // when
-        Department result = departmentService.updateDepartment(department);
+        Employee result = employeeService.updateEmployee(employee);
 
         // then
         mockServer.verify();
-        assertEquals(department, result);
+        assertEquals(employee, result);
     }
 
     @Test
-    void deleteDepartmentByIdTest() throws Exception {
-        LOGGER.debug("deleteDepartmentByIdTest()");
+    void deleteEmployeeByIdTest() throws Exception {
+        LOGGER.debug("deleteEmployeeByIdTest()");
         // given
         Long id = 1L;
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(url + "/" + id)))
@@ -162,7 +152,7 @@ class DepartmentServiceRestTest {
                         .contentType(MediaType.APPLICATION_JSON)
                 );
         // when
-        departmentService.deleteDepartmentById(id);
+        employeeService.deleteEmployeeById(id);
 
         // then
         mockServer.verify();
