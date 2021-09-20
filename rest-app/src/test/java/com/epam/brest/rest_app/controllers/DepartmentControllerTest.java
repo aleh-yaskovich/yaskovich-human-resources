@@ -59,14 +59,14 @@ public class DepartmentControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void findByIdTest() throws Exception {
-        LOGGER.debug("findByIdTest()");
-        Department department = new Department("Department");
-        Department result = departmentService.createDepartment(department);
-        Optional<Department> optional = departmentService.findDepartmentById(1L);
-        assertNotNull(optional);
-    }
+//    @Test
+//    void findByIdTest() throws Exception {
+//        LOGGER.debug("findByIdTest()");
+//        Department department = new Department("Department");
+//        Department result = departmentService.createDepartment(department);
+//        Optional<Department> optional = departmentService.findDepartmentById(1L);
+//        assertNotNull(optional);
+//    }
 
     @Test
     void createDepartmentTest() throws Exception {
@@ -116,7 +116,7 @@ public class DepartmentControllerTest {
                     ).andExpect(status().isOk())
                     .andReturn().getResponse();
             return Optional.of(objectMapper.readValue(response.getContentAsString(), Department.class));
-        };
+        }
 
         Department createDepartment(Department department) throws Exception {
             LOGGER.debug("createDepartment({})", department);
@@ -129,7 +129,7 @@ public class DepartmentControllerTest {
                             ).andExpect(status().isCreated())
                             .andReturn().getResponse();
             return objectMapper.readValue(response.getContentAsString(), Department.class);
-        };
+        }
 
         Department updateDepartment(Department department) throws Exception {
             LOGGER.debug("update({})", department);
@@ -141,7 +141,7 @@ public class DepartmentControllerTest {
                             ).andExpect(status().is(201))
                             .andReturn().getResponse();
             return objectMapper.readValue(response.getContentAsString(), Department.class);
-        };
+        }
 
         void deleteDepartmentById(Long id) throws Exception {
             LOGGER.debug("deleteDepartmentById({})", id);
@@ -151,6 +151,6 @@ public class DepartmentControllerTest {
                                     .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andReturn().getResponse();
-        };
+        }
     }
 }

@@ -21,7 +21,7 @@ public class DepartmentDtoController {
     }
 
     @GetMapping(value = "/departments")
-    Collection<DepartmentDto> departments() {
+    public Collection<DepartmentDto> departments() {
         LOGGER.debug("departments()");
         return departmentDtoService.findAllDepartments();
     }
