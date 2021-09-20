@@ -49,6 +49,5 @@ public class DepartmentController {
         LOGGER.debug("deleteDepartment({})", id);
         departmentService.deleteDepartmentById(id);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 }
