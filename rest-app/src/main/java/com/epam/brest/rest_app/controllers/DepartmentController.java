@@ -31,23 +31,35 @@ public class DepartmentController {
     }
 
     @PostMapping(value = "/departments", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<Integer> createDepartment(@RequestBody Department department) {
+    public ResponseEntity<Department> createDepartment(@RequestBody Department department) {
         LOGGER.debug("createDepartment({})", department);
-        departmentService.createDepartment(department);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        try{
+            Department result = departmentService.createDepartment(department);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
     }
 
     @PutMapping(value = "/departments", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<Integer> updateDepartment(@RequestBody Department department) {
+    public ResponseEntity<Department> updateDepartment(@RequestBody Department department) {
         LOGGER.debug("updateDepartment({})", department);
-        departmentService.updateDepartment(department);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try{
+            Department result = departmentService.updateDepartment(department);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
     }
 
     @DeleteMapping(value = "/departments/{id}", produces = {"application/json"})
-    public ResponseEntity<Integer> deleteDepartment(@PathVariable Long id) {
+    public ResponseEntity<String> deleteDepartment(@PathVariable Long id) {
         LOGGER.debug("deleteDepartment({})", id);
-        departmentService.deleteDepartmentById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try{
+            departmentService.deleteDepartmentById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_MODIFIED);
+        }
     }
 }
