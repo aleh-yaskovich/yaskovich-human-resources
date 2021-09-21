@@ -64,11 +64,11 @@
                             <tbody>
 
                             <tr th:each="department : ${departments}">
-                                <td th:text="${department.getName()}">IT</td>
-                                <td th:text="${department.getAvgSalary()}">1500</td>
+                                <td th:text="${department.name}">IT</td>
+                                <td th:text="${department.avgSalary}">1500</td>
                                 <td class="text-end">
                                     <a class="btn-sm btn-outline-secondary" href="department.html"
-                                       th:href="@{/department/{id}(id=${department.getId()})}"
+                                       th:href="@{/department/{id}(id=${department.id})}"
                                        title="Edit department">
                                         <i class="bi-pen"></i>&nbsp;<span class="d-none d-md-inline">Edit</span>
                                     </a>

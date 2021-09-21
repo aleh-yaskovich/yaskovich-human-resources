@@ -1,5 +1,7 @@
 package com.epam.brest.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -21,6 +23,7 @@ public class Department {
             name = "ID",
             updatable = false
     )
+    @Schema(description = "Department ID (Autoincrement)")
     private Long id;
 
     @Column(
@@ -29,6 +32,7 @@ public class Department {
             columnDefinition = "VARCHAR",
             unique = true
     )
+    @Schema(description = "Department name (Not null, unique)")
     private String name;
 
     public Department() {

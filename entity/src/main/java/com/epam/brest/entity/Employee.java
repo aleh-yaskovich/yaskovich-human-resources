@@ -1,5 +1,7 @@
 package com.epam.brest.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -21,6 +23,7 @@ public class Employee {
             name = "ID",
             updatable = false
     )
+    @Schema(description = "Employee ID (Autoincrement)")
     private Long id;
 
     @Column(
@@ -28,6 +31,7 @@ public class Employee {
             nullable = false,
             columnDefinition = "VARCHAR"
     )
+    @Schema(description = "Employee first name (Not null)")
     private String firstName;
 
     @Column(
@@ -35,6 +39,7 @@ public class Employee {
             nullable = false,
             columnDefinition = "VARCHAR"
     )
+    @Schema(description = "Employee last name (Not null)")
     private String lastName;
 
     @Column(
@@ -43,6 +48,7 @@ public class Employee {
             columnDefinition = "VARCHAR",
             unique = true
     )
+    @Schema(description = "Employee email (Not null, unique)")
     private String email;
 
     @Column(
@@ -52,9 +58,9 @@ public class Employee {
     private Integer salary;
 
     @Column(
-            name = "DEPARTMENT_ID",
-            nullable = false
+            name = "DEPARTMENT_ID"
     )
+    @Schema(description = "Department in which the employee works")
     private Long departmentId;
 
     public Employee() {

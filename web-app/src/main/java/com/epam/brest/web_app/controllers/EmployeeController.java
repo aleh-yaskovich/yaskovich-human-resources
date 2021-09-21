@@ -27,6 +27,9 @@ public class EmployeeController {
         this.departmentDtoService = departmentDtoService;
     }
 
+    /**
+     * Show page with all employees
+     **/
     @GetMapping("/employees")
     public String showAllEmployees(Model model) {
         LOGGER.debug("showAllEmployees()");
@@ -34,6 +37,9 @@ public class EmployeeController {
         return "employees";
     }
 
+    /**
+     * Shows a page for creating an employee
+     **/
     @GetMapping("/employee")
     public String showEmployeeCreatePage(Model model) {
         LOGGER.debug("showEmployeeCreatePage({})", model);
@@ -43,6 +49,9 @@ public class EmployeeController {
         return "employee";
     }
 
+    /**
+     * Create new employee
+     **/
     @PostMapping(value = "/employee")
     public String createEmployee(Employee employee) {
         LOGGER.debug("createEmployee({})", employee);
@@ -50,6 +59,9 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
+    /**
+     * Shows a page for updating an employee
+     **/
     @GetMapping("/employee/{id}")
     public String showEmployeeUpdatePage(@PathVariable Long id, Model model) {
         LOGGER.debug("showEmployeeUpdatePage({},{})", id, model);
@@ -64,6 +76,9 @@ public class EmployeeController {
         }
     }
 
+    /**
+     * Update selected employee
+     **/
     @PostMapping(value = "/employee/{id}")
     public String updateEmployee(Employee employee) {
         LOGGER.debug("updateEmployee({})", employee);
@@ -71,6 +86,9 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
+    /**
+     * Delete selected employee by ID
+     **/
     @GetMapping(value = "/employee/{id}/delete")
     public final String deleteEmployeeById(@PathVariable Long id, Model model) {
         LOGGER.debug("deleteEmployeeById({},{})", id, model);

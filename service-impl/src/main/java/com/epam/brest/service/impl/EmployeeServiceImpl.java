@@ -23,18 +23,27 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.repository = repository;
     }
 
+    /**
+     * Return all employees
+     **/
     @Override
     public List<Employee> findAllEmployees() {
         LOGGER.debug("findAllEmployees()");
         return repository.findAll();
     }
 
+    /**
+     * Return one employee by ID
+     **/
     @Override
     public Optional<Employee> findEmployeeById(Long id) {
         LOGGER.debug("findEmployeeById({})", id);
         return repository.findById(id);
     }
 
+    /**
+     * Create new employee
+     **/
     @Override
     public Employee createEmployee(Employee employee) {
         LOGGER.debug("createEmployee({})", employee);
@@ -46,6 +55,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * Update selected employee
+     **/
     @Override
     public Employee updateEmployee(Employee employee) {
         LOGGER.debug("updateEmployee({})", employee);
@@ -57,6 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * Delete employee by ID
+     **/
     @Override
     public void deleteEmployeeById(Long id) {
         LOGGER.debug("deleteEmployeeById({})", id);
@@ -68,6 +83,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    /**
+     * Check employee email for uniqueness
+     **/
     private List<Employee> checkEmployeeEmail(Employee employee) {
         return repository.findByEmail(employee.getEmail());
     }

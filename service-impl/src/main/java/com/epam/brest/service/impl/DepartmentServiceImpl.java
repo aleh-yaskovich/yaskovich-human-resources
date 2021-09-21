@@ -23,12 +23,18 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.repository = repository;
     }
 
+    /**
+     * Return one department by ID
+     **/
     @Override
     public Optional<Department> findDepartmentById(Long id) {
         LOGGER.debug("findDepartmentById({})", id);
         return repository.findById(id);
     }
 
+    /**
+     * Create new department
+     **/
     @Override
     public Department createDepartment(Department department) throws IllegalArgumentException {
         LOGGER.debug("createDepartment({})", department);
@@ -40,6 +46,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
     }
 
+    /**
+     * Update selected department
+     **/
     @Override
     public Department updateDepartment(Department department) throws IllegalArgumentException {
         LOGGER.debug("updateDepartment({})", department);
@@ -51,6 +60,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
     }
 
+    /**
+     * Delete selected department by ID
+     **/
     @Override
     public void deleteDepartmentById(Long id) throws IllegalArgumentException {
         LOGGER.debug("deleteDepartmentById({})", id);
@@ -62,6 +74,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
     }
 
+    /**
+     * Check department name for uniqueness
+     **/
     private List<Department> checkDepartmentName(Department department) {
         return repository.findByName(department.getName());
     }

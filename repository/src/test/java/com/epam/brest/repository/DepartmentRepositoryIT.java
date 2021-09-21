@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-class DepartmentRepositoryTest {
+class DepartmentRepositoryIT {
 
     @Autowired
     private DepartmentRepository repository;

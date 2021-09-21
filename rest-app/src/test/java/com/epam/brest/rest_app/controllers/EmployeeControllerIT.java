@@ -1,6 +1,5 @@
 package com.epam.brest.rest_app.controllers;
 
-import com.epam.brest.entity.Department;
 import com.epam.brest.entity.Employee;
 import com.epam.brest.rest_app.exception.CustomExceptionHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -35,9 +34,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @Transactional
-class EmployeeControllerTest {
+class EmployeeControllerIT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeControllerTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeControllerIT.class);
 
     @Autowired
     private EmployeeController employeeController;

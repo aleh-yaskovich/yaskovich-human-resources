@@ -33,9 +33,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @Transactional
-class DepartmentDtoControllerTest {
+class DepartmentDtoControllerIT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDtoControllerTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDtoControllerIT.class);
 
     @Autowired
     private DepartmentDtoController departmentDtoController;

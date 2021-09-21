@@ -1,5 +1,7 @@
 package com.epam.brest.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,8 +10,13 @@ public class DepartmentDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Schema(description = "Department-dto ID (equals department.id)")
     private Long id;
+
+    @Schema(description = "Department-dto name (Not null, unique)")
     private String name;
+
+    @Schema(description = "Department-dto average salary")
     private Integer avgSalary;
 
     public DepartmentDto() { }

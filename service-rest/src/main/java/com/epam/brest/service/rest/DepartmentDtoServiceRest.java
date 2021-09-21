@@ -22,6 +22,9 @@ public class DepartmentDtoServiceRest implements DepartmentDtoService {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Return all departments with average salary
+     **/
     @Override
     public List<DepartmentDto> findAllDepartments() {
         LOGGER.debug("findAllDepartments()");

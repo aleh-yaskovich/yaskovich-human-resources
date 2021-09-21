@@ -26,6 +26,9 @@ public class DepartmentController {
         this.departmentDtoService = departmentDtoService;
     }
 
+    /**
+    * Show page with all departments
+    **/
     @GetMapping("/departments")
     public String showAllDepartments(Model model) {
         LOGGER.debug("showAllDepartments({})", model);
@@ -33,6 +36,9 @@ public class DepartmentController {
         return "departments";
     }
 
+    /**
+     * Shows a page for creating a department
+     **/
     @GetMapping("/department")
     public String showDepartmentCreatePage(Model model) {
         LOGGER.debug("showDepartmentCreatePage({})", model);
@@ -41,6 +47,9 @@ public class DepartmentController {
         return "department";
     }
 
+    /**
+     * Create new department
+     **/
     @PostMapping(value = "/department")
     public String createDepartment(Department department) {
         LOGGER.debug("createDepartment({})", department);
@@ -48,6 +57,9 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
+    /**
+     * Shows a page for updating a department
+     **/
     @GetMapping("/department/{id}")
     public String showDepartmentUpdatePage(@PathVariable Long id, Model model) {
         LOGGER.debug("showDepartmentUpdatePage({},{})", id, model);
@@ -61,6 +73,9 @@ public class DepartmentController {
         }
     }
 
+    /**
+     * Update selected department
+     **/
     @PostMapping(value = "/department/{id}")
     public String updateDepartment(Department department) {
         LOGGER.debug("updateDepartment({})", department);
@@ -68,6 +83,9 @@ public class DepartmentController {
         return "redirect:/departments";
     }
 
+    /**
+     * Delete selected department by ID
+     **/
     @GetMapping(value = "/department/{id}/delete")
     public final String deleteDepartmentById(@PathVariable Long id, Model model) {
         LOGGER.debug("deleteDepartmentById({},{})", id, model);

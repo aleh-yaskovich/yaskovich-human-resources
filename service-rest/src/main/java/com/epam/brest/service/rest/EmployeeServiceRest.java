@@ -24,6 +24,9 @@ public class EmployeeServiceRest implements EmployeeService {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Return all employees
+     **/
     @Override
     public List<Employee> findAllEmployees() {
         LOGGER.debug("findAllEmployees()");
@@ -31,6 +34,9 @@ public class EmployeeServiceRest implements EmployeeService {
         return (List<Employee>) responseEntity.getBody();
     }
 
+    /**
+     * Return one employee by ID
+     **/
     @Override
     public Optional<Employee> findEmployeeById(Long id) {
         LOGGER.debug("findEmployeeById({})", id);
@@ -39,6 +45,9 @@ public class EmployeeServiceRest implements EmployeeService {
         return Optional.ofNullable(responseEntity.getBody());
     }
 
+    /**
+     * Create new employee
+     **/
     @Override
     public Employee createEmployee(Employee employee) {
         LOGGER.debug("createEmployee({})", employee);
@@ -46,6 +55,9 @@ public class EmployeeServiceRest implements EmployeeService {
         return (Employee) responseEntity.getBody();
     }
 
+    /**
+     * Update selected employee
+     **/
     @Override
     public Employee updateEmployee(Employee employee) {
         LOGGER.debug("updateEmployee({})", employee);
@@ -56,6 +68,9 @@ public class EmployeeServiceRest implements EmployeeService {
         return (Employee) result.getBody();
     }
 
+    /**
+     * Delete employee by ID
+     **/
     @Override
     public void deleteEmployeeById(Long id) {
         LOGGER.debug("deleteEmployeeById({})", id);

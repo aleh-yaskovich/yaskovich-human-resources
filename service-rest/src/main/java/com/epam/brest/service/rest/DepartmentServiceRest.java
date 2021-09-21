@@ -23,6 +23,9 @@ public class DepartmentServiceRest implements DepartmentService {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Return one department by ID
+     **/
     @Override
     public Optional<Department> findDepartmentById(Long id) {
         LOGGER.debug("findDepartmentById({})", id);
@@ -31,6 +34,9 @@ public class DepartmentServiceRest implements DepartmentService {
         return Optional.ofNullable(responseEntity.getBody());
     }
 
+    /**
+     * Create new department
+     **/
     @Override
     public Department createDepartment(Department department) {
         LOGGER.debug("createDepartment({})", department);
@@ -38,6 +44,9 @@ public class DepartmentServiceRest implements DepartmentService {
         return (Department) responseEntity.getBody();
     }
 
+    /**
+     * Update selected department
+     **/
     @Override
     public Department updateDepartment(Department department) {
         LOGGER.debug("updateDepartment({})", department);
@@ -48,6 +57,9 @@ public class DepartmentServiceRest implements DepartmentService {
         return (Department) result.getBody();
     }
 
+    /**
+     * Delete selected department by ID
+     **/
     @Override
     public void deleteDepartmentById(Long id) {
         LOGGER.debug("deleteDepartmentById({})", id);

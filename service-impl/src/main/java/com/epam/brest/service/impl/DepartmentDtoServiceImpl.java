@@ -22,6 +22,9 @@ public class DepartmentDtoServiceImpl implements DepartmentDtoService {
         this.repository = repository;
     }
 
+    /**
+     * Return all departments with average salary
+     **/
     @Override
     public List<DepartmentDto> findAllDepartments() {
         LOGGER.debug("findAllDepartments()");
