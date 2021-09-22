@@ -2,6 +2,7 @@ package com.epam.brest.service.rest;
 
 import com.epam.brest.service.DepartmentDtoService;
 import com.epam.brest.service.DepartmentService;
+import com.epam.brest.service.EmployeeDtoService;
 import com.epam.brest.service.EmployeeService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,5 +30,10 @@ public class TestConfig {
     @Bean
     EmployeeService EmployeeService() {
         return new EmployeeServiceRest(restTemplate());
+    }
+
+    @Bean
+    EmployeeDtoService EmployeeDtoService() {
+        return new EmployeeDtoServiceRest(restTemplate());
     }
 }

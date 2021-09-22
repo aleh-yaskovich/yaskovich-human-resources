@@ -28,7 +28,7 @@ public class DepartmentDtoServiceRest implements DepartmentDtoService {
     @Override
     public List<DepartmentDto> findAllDepartments() {
         LOGGER.debug("findAllDepartments()");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
+        ResponseEntity responseEntity = restTemplate.getForEntity(url + "-dto", List.class);
         return (List<DepartmentDto>) responseEntity.getBody();
     }
 }

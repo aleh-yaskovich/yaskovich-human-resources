@@ -58,6 +58,7 @@
                             <tr class="table-dark">
                                 <th>Title</th>
                                 <th>Avg salary</th>
+                                <th>Number of employees</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -66,6 +67,7 @@
                             <tr th:each="department : ${departments}">
                                 <td th:text="${department.name}">IT</td>
                                 <td th:text="${department.avgSalary}">1500</td>
+                                <td th:text="${department.numberOfEmployees}">1</td>
                                 <td class="text-end">
                                     <a class="btn-sm btn-outline-secondary" href="department.html"
                                        th:href="@{/department/{id}(id=${department.id})}"
@@ -79,36 +81,6 @@
 												<i class="bi-x"></i><span class="d-none d-md-inline">Delete</span>
 											</a>
 										</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>MANAGEMENT</td>
-                                <td>600</td>
-                                <td class="text-end">
-                                    <a class="btn-sm btn-outline-secondary" href="department.html" title="Edit department">
-                                        <i class="bi-pen"></i>&nbsp;<span class="d-none d-md-inline">Edit</span>
-                                    </a>
-                                    <span data-toggle="modal" data-target="#deleteModal">
-											<a class="btn-sm btn-outline-secondary"  href="#" >
-												<i class="bi-x"></i><span class="d-none d-md-inline">Delete</span>
-											</a>
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>SECURITY</td>
-                                <td>550</td>
-                                <td class="text-end">
-                                    <a class="btn-sm btn-outline-secondary" href="department.html" title="Edit department">
-                                        <i class="bi-pen"></i>&nbsp;<span class="d-none d-md-inline">Edit</span>
-                                    </a>
-                                    <span data-toggle="modal" data-target="#deleteModal">
-											<a class="btn-sm btn-outline-secondary"  href="#" >
-												<i class="bi-x"></i><span class="d-none d-md-inline">Delete</span>
-											</a>
-                                    </span>
                                 </td>
                             </tr>
 

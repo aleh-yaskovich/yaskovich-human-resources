@@ -60,7 +60,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Salary</th>
-<!--                                <th>Department</th>-->
+                                <th>Department</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -70,7 +70,7 @@
                                 <td th:text="${employee.firstName}+' '+${employee.lastName}">Ivan Ivanov</td>
                                 <td th:text="${employee.email}">ivanov@mail.com</td>
                                 <td th:text="${employee.salary}">1000</td>
-<!--                                <td>IT</td>-->
+                                <td th:text="${employee.departmentName}">IT</td>
                                 <td class="text-end">
                                     <a class="btn-sm btn-outline-secondary" href="employee.html"
                                        th:href="@{/employee/{id}(id=${employee.id})}" title="Edit employee">
@@ -82,40 +82,6 @@
                                         <i class="bi-x"></i><span class="d-none d-md-inline">Delete</span>
                                     </a>
                                     </span>
-                                </td>
-                            </tr>
-
-                            <tr >
-                                <td>Petr Petrov</td>
-                                <td>petrov@mail.com</td>
-                                <td>800</td>
-<!--                                <td>IT</td>-->
-                                <td class="text-end">
-                                    <a class="btn-sm btn-outline-secondary" href="department.html" title="Edit employee">
-                                        <i class="bi-pen"></i>&nbsp;<span class="d-none d-md-inline">Edit</span>
-                                    </a>
-                                    <span data-toggle="modal" data-target="#deleteModal">
-                                    <a class="btn-sm btn-outline-secondary"  href="#" >
-                                        <i class="bi-x"></i><span class="d-none d-md-inline">Delete</span>
-                                    </a>
-                                </span>
-                                </td>
-                            </tr>
-
-                            <tr >
-                                <td>Aleh Yaskovich</td>
-                                <td>yaskovich@mail.com</td>
-                                <td>1000</td>
-<!--                                <td>MANAGEMENT</td>-->
-                                <td class="text-end">
-                                    <a class="btn-sm btn-outline-secondary" href="department.html" title="Edit employee">
-                                        <i class="bi-pen"></i>&nbsp;<span class="d-none d-md-inline">Edit</span>
-                                    </a>
-                                    <span data-toggle="modal" data-target="#deleteModal">
-                                    <a class="btn-sm btn-outline-secondary"  href="#" >
-                                        <i class="bi-x"></i><span class="d-none d-md-inline">Delete</span>
-                                    </a>
-                                </span>
                                 </td>
                             </tr>
 

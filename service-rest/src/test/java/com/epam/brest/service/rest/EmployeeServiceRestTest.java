@@ -1,6 +1,8 @@
 package com.epam.brest.service.rest;
 
 import com.epam.brest.entity.Employee;
+import com.epam.brest.entity.EmployeeDto;
+import com.epam.brest.service.EmployeeDtoService;
 import com.epam.brest.service.EmployeeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +42,9 @@ class EmployeeServiceRestTest {
     @Autowired
     EmployeeService employeeService;
 
+    @Autowired
+    EmployeeDtoService employeeDtoService;
+
     private String url = "http://localhost:8080/employees";
 
     private MockRestServiceServer mockServer;
@@ -55,6 +60,28 @@ class EmployeeServiceRestTest {
     void findAllEmployeesTest() throws Exception {
         LOGGER.debug("findAllEmployeesTest()");
         // given
+        List<EmployeeDto> employeeDtoList = Arrays.asList(new EmployeeDto(), new EmployeeDto());
+
+        mockServer.expect(ExpectedCount.once(), requestTo(url + "-dto"))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(employeeDtoList))
+                );
+
+        // when
+        List<EmployeeDto> employees = employeeDtoService.findAllEmployees();
+
+        // then
+        mockServer.verify();
+        assertNotNull(employees);
+        assertTrue(employees.size() == 2);
+    }
+
+    @Test
+    void findAllTest() throws Exception {
+        LOGGER.debug("findAllTest()");
+        // given
         List<Employee> employeeList = Arrays.asList(new Employee(), new Employee());
 
         mockServer.expect(ExpectedCount.once(), requestTo(url))
@@ -65,7 +92,7 @@ class EmployeeServiceRestTest {
                 );
 
         // when
-        List<Employee> employees = employeeService.findAllEmployees();
+        List<Employee> employees = employeeService.findAll();
 
         // then
         mockServer.verify();

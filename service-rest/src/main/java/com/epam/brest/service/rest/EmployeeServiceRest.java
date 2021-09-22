@@ -28,8 +28,8 @@ public class EmployeeServiceRest implements EmployeeService {
      * Return all employees
      **/
     @Override
-    public List<Employee> findAllEmployees() {
-        LOGGER.debug("findAllEmployees()");
+    public List<Employee> findAll() {
+        LOGGER.debug("findAll()");
         ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
         return (List<Employee>) responseEntity.getBody();
     }

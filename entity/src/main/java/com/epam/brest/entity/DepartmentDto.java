@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "DEPARTMENT")
 public class DepartmentDto {
 
     @Id
@@ -19,11 +18,15 @@ public class DepartmentDto {
     @Schema(description = "Department-dto average salary")
     private Integer avgSalary;
 
+    @Schema(description = "Number of employees in the department")
+    private Integer numberOfEmployees;
+
     public DepartmentDto() { }
 
-    public DepartmentDto(String name, Integer avgSalary) {
+    public DepartmentDto(String name, Integer avgSalary, Integer numberOfEmployees) {
         this.name = name;
         this.avgSalary = avgSalary;
+        this.numberOfEmployees = numberOfEmployees;
     }
 
     public Long getId() {
@@ -48,5 +51,13 @@ public class DepartmentDto {
 
     public void setAvgSalary(Integer avgSalary) {
         this.avgSalary = avgSalary;
+    }
+
+    public Integer getNumberOfEmployees() {
+        return numberOfEmployees;
+    }
+
+    public void setNumberOfEmployees(Integer numberOfEmployees) {
+        this.numberOfEmployees = numberOfEmployees;
     }
 }

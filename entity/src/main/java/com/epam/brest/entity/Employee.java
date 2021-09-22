@@ -55,6 +55,7 @@ public class Employee {
             name = "SALARY",
             nullable = false
     )
+    @Schema(description = "Employee salary")
     private Integer salary;
 
     @Column(

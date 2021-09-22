@@ -11,7 +11,7 @@ public interface DepartmentDtoRepository extends CrudRepository<DepartmentDto, L
     /**
     * Return all departments with average salary
     **/
-    @Query(value = "SELECT D.ID, D.NAME, AVG(E.SALARY) AS AVG_SALARY FROM DEPARTMENT D " +
-            "LEFT JOIN EMPLOYEE E ON D.ID = E.DEPARTMENT_ID GROUP BY D.ID, D.NAME", nativeQuery = true)
+    @Query(value = "SELECT d.id, d.name, AVG(e.salary) AS avg_salary, COUNT(e.id) AS number_of_employees FROM " +
+            "department d LEFT JOIN employee e ON d.id = e.department_id GROUP BY d.id, d.name", nativeQuery = true)
     List<DepartmentDto> findAll();
 }

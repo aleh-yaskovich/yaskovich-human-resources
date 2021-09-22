@@ -10,7 +10,7 @@ public interface EmployeeService {
     /**
      * Return all employees
      **/
-    List<Employee> findAllEmployees();
+    List<Employee> findAll();
 
     /**
      * Return one employee by ID

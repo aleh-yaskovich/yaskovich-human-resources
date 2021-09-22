@@ -38,7 +38,7 @@ public class EmployeeController {
     @GetMapping(value = "/employees")
     public Collection<Employee> employees() {
         LOGGER.debug("employees()");
-        return employeeService.findAllEmployees();
+        return employeeService.findAll();
     }
 
     /**

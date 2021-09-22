@@ -1,11 +1,11 @@
 package com.epam.brest.rest_app.controllers;
 
-import com.epam.brest.entity.DepartmentDto;
-import org.junit.jupiter.api.Test;
+import com.epam.brest.entity.EmployeeDto;
 import com.epam.brest.rest_app.exception.CustomExceptionHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
@@ -23,8 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -33,12 +32,12 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @Transactional
-class DepartmentDtoControllerIT {
+class EmployeeDtoControllerIT {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentDtoControllerIT.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeDtoControllerIT.class);
 
     @Autowired
-    private DepartmentDtoController departmentDtoController;
+    private EmployeeDtoController employeeDtoController;
 
     @Autowired
     private CustomExceptionHandler customExceptionHandler;
@@ -48,11 +47,11 @@ class DepartmentDtoControllerIT {
 
     protected MockMvc mockMvc;
 
-    protected MockDepartmentDtoService departmentDtoService = new MockDepartmentDtoService();
+    protected MockEmployeeDtoService employeeDtoService = new MockEmployeeDtoService();
 
     @BeforeEach
     void setUp() {
-        this.mockMvc = standaloneSetup(departmentDtoController)
+        this.mockMvc = standaloneSetup(employeeDtoController)
                 .setMessageConverters(new MappingJackson2HttpMessageConverter())
                 .setControllerAdvice(customExceptionHandler)
                 .alwaysDo(MockMvcResultHandlers.print())
@@ -61,26 +60,25 @@ class DepartmentDtoControllerIT {
     }
 
     @Test
-    void departmentsTest() throws Exception {
-        LOGGER.debug("departmentsTest()");
-        List<DepartmentDto> dtos = departmentDtoService.findAllDepartments();
+    void employeesTest() throws Exception {
+        LOGGER.debug("employeesTest()");
+        List<EmployeeDto> dtos = employeeDtoService.findAllEmployees();
         assertNotNull(dtos);
         assertTrue(dtos.isEmpty());
     }
 
-    private class MockDepartmentDtoService {
+    private class MockEmployeeDtoService {
 
-        public List<DepartmentDto> findAllDepartments() throws Exception {
-            LOGGER.debug("findAllDepartments()");
-            MockHttpServletResponse response = mockMvc.perform(get("/departments-dto")
+        public List<EmployeeDto> findAllEmployees() throws Exception {
+            LOGGER.debug("findAllEmployees()");
+            MockHttpServletResponse response = mockMvc.perform(get("/employees-dto")
                             .accept(MediaType.APPLICATION_JSON)
                     ).andExpect(status().isOk())
                     .andReturn().getResponse();
             assertNotNull(response);
 
-            return objectMapper.readValue(response.getContentAsString(), new TypeReference<List<DepartmentDto>>() {
+            return objectMapper.readValue(response.getContentAsString(), new TypeReference<List<EmployeeDto>>() {
             });
         }
     }
-
 }

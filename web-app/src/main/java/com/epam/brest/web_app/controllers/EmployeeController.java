@@ -2,6 +2,7 @@ package com.epam.brest.web_app.controllers;
 
 import com.epam.brest.entity.Employee;
 import com.epam.brest.service.DepartmentDtoService;
+import com.epam.brest.service.EmployeeDtoService;
 import com.epam.brest.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,15 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    private final EmployeeDtoService employeeDtoService;
+
     private final DepartmentDtoService departmentDtoService;
 
-    public EmployeeController(EmployeeService employeeService, DepartmentDtoService departmentDtoService) {
+    public EmployeeController(
+            EmployeeService employeeService, EmployeeDtoService employeeDtoService, DepartmentDtoService departmentDtoService)
+    {
         this.employeeService = employeeService;
+        this.employeeDtoService = employeeDtoService;
         this.departmentDtoService = departmentDtoService;
     }
 
@@ -33,7 +39,7 @@ public class EmployeeController {
     @GetMapping("/employees")
     public String showAllEmployees(Model model) {
         LOGGER.debug("showAllEmployees()");
-        model.addAttribute("employees", employeeService.findAllEmployees());
+        model.addAttribute("employees", employeeDtoService.findAllEmployees());
         return "employees";
     }
 

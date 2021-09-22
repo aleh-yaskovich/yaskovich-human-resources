@@ -24,9 +24,9 @@ class DepartmentDtoServiceImplTest {
     private DepartmentDtoRepository departmentDtoRepository;
 
     private List<DepartmentDto> departmentDtoList = Arrays.asList(
-            new DepartmentDto("IT", 100),
-            new DepartmentDto("MANAGEMENT", 200),
-            new DepartmentDto("SECURITY", 300)
+            new DepartmentDto("IT", 100, 2),
+            new DepartmentDto("MANAGEMENT", 200, 1),
+            new DepartmentDto("SECURITY", 300, 0)
     );
 
     @Test

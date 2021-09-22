@@ -33,7 +33,7 @@ class EmployeeServiceImplTest {
     @Test
     void findAllEmployeesTest() {
         Mockito.when(repository.findAll()).thenReturn(employeeList);
-        List<Employee> employees = employeeService.findAllEmployees();
+        List<Employee> employees = employeeService.findAll();
         assertNotNull(employees);
         assertTrue(employees.size() > 0);
     }

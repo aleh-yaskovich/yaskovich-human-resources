@@ -2,9 +2,11 @@ package com.epam.brest.web_app;
 
 import com.epam.brest.service.DepartmentDtoService;
 import com.epam.brest.service.DepartmentService;
+import com.epam.brest.service.EmployeeDtoService;
 import com.epam.brest.service.EmployeeService;
 import com.epam.brest.service.rest.DepartmentDtoServiceRest;
 import com.epam.brest.service.rest.DepartmentServiceRest;
+import com.epam.brest.service.rest.EmployeeDtoServiceRest;
 import com.epam.brest.service.rest.EmployeeServiceRest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,5 +34,10 @@ public class WebConfig {
     @Bean
     EmployeeService EmployeeService() {
         return new EmployeeServiceRest(restTemplate());
+    }
+
+    @Bean
+    EmployeeDtoService EmployeeDtoService() {
+        return new EmployeeDtoServiceRest(restTemplate());
     }
 }

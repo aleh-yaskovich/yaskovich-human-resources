@@ -33,7 +33,7 @@ public class DepartmentDtoController {
             summary = "Return departments",
             description = "Return list of departments with average salaries"
     )
-    @GetMapping(value = "/departments")
+    @GetMapping(value = "/departments-dto")
     public Collection<DepartmentDto> departments() {
         LOGGER.debug("departments()");
         return departmentDtoService.findAllDepartments();

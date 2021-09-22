@@ -27,8 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Return all employees
      **/
     @Override
-    public List<Employee> findAllEmployees() {
-        LOGGER.debug("findAllEmployees()");
+    public List<Employee> findAll() {
+        LOGGER.debug("findAll()");
         return repository.findAll();
     }
 
